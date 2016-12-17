@@ -1,11 +1,20 @@
 (define (square x) (* x x))
 
-(define a 8)
-(define b 6)
-(define c 7)
+(define (calculate-sum-of-squares i j)
+  (+ (square i)
+     (square j)))
 
-(define size 7 )
-(+  size 8)
+(define (square-largest a b c)
+  (cond
+    ((and (< a b) (< a c))
+     (calculate-sum-of-squares b c))
+    ((and
+       (< b a)
+       (< b c))
+     (calculate-sum-of-squares a c))
+    (else
+      (calculate-sum-of-squares a b))))
 
-(and (> a b)
-     (> b c))
+(square-largest 1 2 3)
+(square-largest 4 2 3)
+(square-largest 4 5 3)
