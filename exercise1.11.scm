@@ -4,7 +4,6 @@
 ; recursive
 (define (f n)
   ; (display n) (newline)
-  ; (display (f (- n 3))) (display ">")
   (cond ((< n 3) n)
         (else (+
                 (f(- n 1))
@@ -61,21 +60,35 @@
 (f 12)
 
 ; iterative
-(define(f-iter n iter count)
-  (display n)(display "-")
-  (display iter)(display "-")
-  (display count)(newline)
-  (+ (cond ((< n 3) n) (else (f2 n)))
-     (cond
-       ((= count iter)
-        (cond ((> iter 3) 0)
-              (else (f-iter (- n 1) (+ iter 1) 1)))
+(define(f-iter minus1 minus2 minus3 i)
+  (display minus1)(display "-")
+  (display minus2)(display "-")
+  (display minus3)(display "-")
+  (display i)
+  (newline)
+  (cond
+    ;; just return the number
+    ; ((< i 3) i)
+    ((< i 3) minus1)
+    (else
+      (f-iter
+        ;; this is the formula
+        (+
+          minus1
+          (* 2 minus2)
+          (* 3 minus3)
+          )
+          ;; this is the previous formula result
+          minus1
+          ;; this is the result before the previous result
+          minus2
+          (- i 1)
         )
-       (else (f-iter n iter (+ count 1)))))
-
+      )
+    )
   )
 
-(define (f2 n) (f-iter (- n 1) 1 1))
+(define (f2 n) (f-iter 2 1 0 n ))
 
 (f 3)
 (f2 3)
@@ -83,13 +96,5 @@
 (f2 4)
 (f 5)
 (f2 5)
-
-
-(define (simple n)
-  (+
-    1
-    (cond ((= n 1) 0)
-          (else (simple (- n 1))))))
-
-
-(simple 9)
+(f 6)
+(f2 6)
